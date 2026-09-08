@@ -1,1 +1,356 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nous deux</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body {
+    height: 100%;
+    background: #1a1816;
+    font-family: Georgia, 'Times New Roman', serif;
+    overflow: hidden;
+  }
+  .app {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+  }
+  .card {
+    width: 100%;
+    max-width: 480px;
+    height: 100%;
+    max-height: 780px;
+    background: #fdfaf5;
+    border-radius: 18px;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    position: relative;
+  }
+  .slide {
+    flex: 1;
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    padding: 40px 32px;
+    overflow-y: auto;
+  }
+  .slide.active { display: flex; }
+  .eyebrow {
+    font-size: 12px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: #a8895f;
+    text-align: center;
+    margin-bottom: 10px;
+    font-family: Helvetica, Arial, sans-serif;
+  }
+  .title {
+    font-size: 26px;
+    text-align: center;
+    color: #2b2620;
+    margin-bottom: 6px;
+    font-weight: normal;
+  }
+  .subtitle {
+    font-size: 13px;
+    text-align: center;
+    color: #8a8177;
+    margin-bottom: 20px;
+    font-family: Helvetica, Arial, sans-serif;
+  }
+  .photo {
+    width: 100%;
+    aspect-ratio: 4/3;
+    background: #ece5da;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #b3a892;
+    font-size: 12px;
+    font-family: Helvetica, Arial, sans-serif;
+    text-align: center;
+    flex-shrink: 0;
+  }
+  .photo-row {
+    display: flex;
+    gap: 6px;
+    margin-bottom: 16px;
+  }
+  .photo-row img {
+    width: 50%;
+    border-radius: 10px;
+    object-fit: cover;
+    aspect-ratio: 3/4;
+  }
+  img.full {
+    width: 100%;
+    border-radius: 10px;
+    margin-bottom: 16px;
+    display: block;
+  }
+  .body-text {
+    font-size: 16px;
+    line-height: 1.75;
+    color: #3a342c;
+  }
+  .body-text + .body-text { margin-top: 12px; }
+  .closing {
+    font-size: 19px;
+    line-height: 1.8;
+    text-align: center;
+    color: #2b2620;
+    font-style: italic;
+  }
+  .nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 14px 20px;
+    border-top: 1px solid #e8e0d3;
+    font-family: Helvetica, Arial, sans-serif;
+    flex-shrink: 0;
+  }
+  .nav button {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: 1px solid #d8cfbf;
+    background: #fff;
+    color: #2b2620;
+    font-size: 18px;
+    cursor: pointer;
+  }
+  .nav button:disabled { opacity: 0.3; cursor: default; }
+  .counter { font-size: 12px; color: #a8895f; letter-spacing: 1px; }
+  .dots {
+    position: absolute;
+    top: 14px;
+    left: 0;
+    right: 0;
+    display: flex;
+    justify-content: center;
+    gap: 4px;
+    z-index: 2;
+    flex-wrap: wrap;
+    padding: 0 20px;
+  }
+  .dot {
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: #e0d6c4;
+  }
+  .dot.active { background: #a8895f; }
+</style>
+</head>
+<body>
+<div class="app">
+  <div class="card">
+    <div class="dots" id="dots"></div>
 
+    <div class="slide active">
+      <img class="full" src="images/tatiana-bumble.jpg" alt="" style="width:70%; margin:0 auto 24px; display:block;">
+      <div class="title" style="font-size:30px;">Nous deux</div>
+      <div class="subtitle" style="margin-top:8px;">28 octobre 2024 — aujourd'hui</div>
+    </div>
+
+    <div class="slide">
+      <div class="eyebrow">16 octobre 2024</div>
+      <div class="title" style="font-size:20px;">Bumble</div>
+      <img class="full" src="images/bumble-echange.jpg" alt="">
+      <div class="body-text">Tout a commencé là, un soir d'octobre — une histoire de Volvo, de Serena Williams et de Skoda électrique. On n'imaginait pas où ça allait nous mener.</div>
+    </div>
+
+    <div class="slide">
+      <div class="eyebrow">28 octobre 2024</div>
+      <div class="title" style="font-size:20px;">Maison-Rouge, Chambéry</div>
+      <img class="full" src="images/robe-a-pois.jpg" alt="">
+      <div class="body-text">Notre premier rendez-vous, au Maison-Rouge, à Chambéry. Tu portais cette robe à pois, tu étais sublime, à peine intimidée. Moi j'étais mort de trac, parce que j'avais déjà compris, au premier regard, que c'était toi.</div>
+      <div class="body-text">On a parlé de tout et de rien, et à un moment on s'est retrouvés à parler d'un élevage d'esturgeons pour faire du caviar — allez savoir comment on en est arrivés là. Je t'ai raccompagnée jusqu'au parking.</div>
+    </div>
+
+    <div class="slide">
+      <div class="eyebrow">Deuxième rendez-vous</div>
+      <div class="title" style="font-size:20px;">Le billard, et le premier baiser</div>
+      <div class="body-text">J'avais le doigt cassé, bandé, pas très vaillant. Toi, tu m'as quand même traîné faire un billard. Il y avait du monde autour de nous, alors je me suis inventé un personnage — Vladimir — juste pour te faire rire.</div>
+      <div class="body-text">Et puis tu m'as dit que tu ne voulais pas qu'on soit "juste amis". C'est là que je t'ai embrassée pour de vrai. Je ne sais plus si j'ai gagné la partie, mais je me souviens de tout le reste.</div>
+    </div>
+
+    <div class="slide">
+      <div class="eyebrow">L'année dernière</div>
+      <div class="title" style="font-size:20px;">Leonid et Sacha</div>
+      <div class="body-text">J'étais parti en vacances, et tu t'occupais de mon chien. Tu as logé chez moi avec Leonid et Sacha — du coup ils connaissaient déjà ma maison avant de me connaître moi. Un peu à l'envers, mais ça nous a fait rire. Et puis on s'est enfin rencontrés pour de vrai, et depuis je les aime comme si c'était les miens.</div>
+    </div>
+
+    <div class="slide">
+      <div class="eyebrow">Un jour de pluie</div>
+      <div class="title" style="font-size:20px;">Walibi rien que pour nous</div>
+      <img class="full" src="images/walibi.jpg" alt="">
+      <div class="body-text">Il pleuvait des cordes ce jour-là, le pire jour pour aller à Walibi — sauf que ça voulait dire qu'il n'y avait personne. On a fait tous les manèges, encore et encore, comme si le parc entier n'appartenait qu'à nous.</div>
+    </div>
+
+    <div class="slide">
+      <div class="eyebrow">Premières vacances</div>
+      <div class="title" style="font-size:20px;">La Ciotat</div>
+      <div class="photo-row">
+        <img src="images/laciotat-1.jpg" alt="">
+        <img src="images/laciotat-2.jpg" alt="">
+      </div>
+      <div class="body-text">Nos toutes premières vacances ensemble, à La Ciotat. C'était génial, tout simplement.</div>
+    </div>
+
+    <div class="slide">
+      <div class="eyebrow">Peu après</div>
+      <div class="title" style="font-size:20px;">Palma de Majorque</div>
+      <div class="photo-row">
+        <img src="images/palma-1.jpg" alt="">
+        <img src="images/palma-2.jpg" alt="">
+      </div>
+      <div class="body-text">On repartait déjà, direction Palma de Majorque. J'ai loué un scooter, et on a sillonné l'île tous les deux.</div>
+    </div>
+
+    <div class="slide">
+      <div class="eyebrow">Décembre</div>
+      <div class="title" style="font-size:20px;">Noël avec les enfants</div>
+      <div class="photo-row">
+        <img src="images/italie-bague.jpg" alt="">
+        <img src="images/noel-1.jpg" alt="">
+      </div>
+      <div class="body-text">Notre premier Noël ensemble, avec les enfants. Des bêtises, des bougies, et cette sensation d'être vraiment une famille.</div>
+    </div>
+
+    <div class="slide">
+      <div class="eyebrow">Mai — son anniversaire</div>
+      <div class="title" style="font-size:20px;">Italie, les pieds dans la mer</div>
+      <img class="full" src="images/noel-2.jpg" alt="">
+      <div class="body-text">Pour ton anniversaire, en Italie, les pieds dans l'eau, je t'ai offert une bague. Trois petits cœurs, trois diamants — un pour toi, un pour Leonid, un pour Sacha. J'étais tellement ému que j'ai eu du mal à trouver mes mots.</div>
+    </div>
+
+    <div class="slide">
+      <div class="eyebrow">Cet été</div>
+      <div class="title" style="font-size:20px;">Carcassonne, tous ensemble</div>
+      <img class="full" src="images/mazamet.jpg" alt="">
+      <div class="body-text">On a pris une maison près de Carcassonne pour quinze jours, tous ensemble — Leonid, Sacha, Zélie, Anouchka. Toute notre petite tribu réunie sous le même toit. Quinze jours de bonheur simple, et un des plus beaux souvenirs de cet été.</div>
+    </div>
+
+    <div class="slide">
+      <div class="eyebrow">À venir</div>
+      <div class="title" style="font-size:20px;">Octobre, Lisbonne</div>
+      <img class="full" src="images/lisbonne.jpg" alt="Lisbonne">
+      <div class="body-text">Le prochain voyage nous attend en octobre, à Lisbonne.</div>
+    </div>
+
+    <div class="slide">
+      <div class="title" style="font-size:20px;">Qui je suis</div>
+      <div class="body-text">Je suis quelqu'un d'hypersensible. Ce que je ressens, je le ressens fort — dans un sens comme dans l'autre.</div>
+      <div class="body-text">Je ne suis pas quelqu'un de têtu. Quand tu me dis quelque chose, j'agis. Je me remets en question. Et parfois je me trompe, parce que je suis humain — mais je ne fuis jamais la remise en question.</div>
+    </div>
+
+    <div class="slide">
+      <div class="title" style="font-size:20px;">Et aussi</div>
+      <div class="body-text">Tu adores ma cuisine, et moi j'adore cuisiner pour toi. Le tataki de bœuf, le tartare de thon — tes préférés, toujours prêts à refaire.</div>
+    </div>
+
+    <div class="slide">
+      <div class="title" style="font-size:20px;">Un moment difficile</div>
+      <div class="body-text">Il y a eu un moment difficile entre nous, il y a peu. Une parole de trop de ma part, mal placée, qui t'a blessée. Je le sais, je le regrette. Ce n'était pas qui je veux être avec toi.</div>
+    </div>
+
+    <div class="slide">
+      <div class="title" style="font-size:20px;">Ce mois-ci</div>
+      <div class="body-text">Ce dernier mois, on a passé plus de temps fâchés qu'ensemble. Je le sais, je le vis aussi. Mais je crois que c'est un passage — un moment de notre vie qu'il faut traverser, pas fuir.</div>
+      <div class="body-text">Et à travers tout ça, une chose n'a jamais bougé : je t'aime énormément.</div>
+    </div>
+
+    <div class="slide">
+      <div class="eyebrow">Aujourd'hui</div>
+      <div class="title" style="font-size:20px;">Quinze minutes, plus quarante-cinq</div>
+      <img class="full" src="images/cremaillere.jpg" alt="">
+      <div class="body-text">J'ai acheté à La Biolle, après dix-huit mois de trajets incessants et des centaines de kilomètres avalés. On est passés de quarante-cinq minutes de route à quinze — presque à côté, maintenant. Et j'ai fait une chambre pour Leonid et Sacha, pour qu'ils aient un vrai endroit à eux chez moi, les week-ends où ils viennent.</div>
+      <div class="body-text">Ce n'est pas un hasard. C'est un choix que j'ai fait, pour vous.</div>
+    </div>
+
+    <div class="slide">
+      <div class="title" style="font-size:20px;">Un tableau, chez moi</div>
+      <img class="full" src="images/tableau.jpg" alt="">
+      <div class="body-text">Tu m'as offert un tableau peint par ta mère. Il est chez moi maintenant, et à chaque fois que je le regarde, je pense à toi.</div>
+    </div>
+
+    <div class="slide">
+      <div class="title" style="font-size:20px;">Ce que je te propose</div>
+      <img class="full" src="images/nousdeux-soiree.jpg" alt="">
+      <div class="body-text">Rien sous le tapis. Pas de masque, pas de faire semblant pour te plaire. Être honnête, entièrement.</div>
+      <div class="body-text">Quand il y a une difficulté, on l'affronte ensemble, on ne la fuit pas. On apprend à soigner nos blessures, à se remettre en question, à se faire confiance.</div>
+    </div>
+
+    <div class="slide">
+      <div class="title" style="font-size:20px;">Comprendre, pas blesser</div>
+      <div class="body-text">Comme maintenant : tu me dis quelque chose, je le note, je le prends au sérieux. Le but n'est jamais de faire mal — c'est de comprendre, et d'avancer ensemble.</div>
+      <div class="body-text">Pas de partir au premier clash.</div>
+    </div>
+
+    <div class="slide">
+      <div class="closing">Qu'on se parle ou non, qu'on soit en couple ou non, bloqués ou non, amis ou non, il y aura toujours une partie de mon cœur qui sera à toi, celle que tu as créée et que personne ne pourra jamais te l'enlever...</div>
+    </div>
+
+    <div class="nav">
+      <button id="prev" aria-label="Précédent">‹</button>
+      <span class="counter" id="counter">1 / 21</span>
+      <button id="next" aria-label="Suivant">›</button>
+    </div>
+  </div>
+</div>
+
+<script>
+  const slides = document.querySelectorAll('.slide');
+  const dotsWrap = document.getElementById('dots');
+  const counter = document.getElementById('counter');
+  const prevBtn = document.getElementById('prev');
+  const nextBtn = document.getElementById('next');
+  let i = 0;
+
+  slides.forEach((_, idx) => {
+    const d = document.createElement('div');
+    d.className = 'dot' + (idx === 0 ? ' active' : '');
+    dotsWrap.appendChild(d);
+  });
+  const dots = document.querySelectorAll('.dot');
+
+  function render() {
+    slides.forEach((s, idx) => s.classList.toggle('active', idx === i));
+    dots.forEach((d, idx) => d.classList.toggle('active', idx === i));
+    counter.textContent = (i + 1) + ' / ' + slides.length;
+    prevBtn.disabled = i === 0;
+    nextBtn.disabled = i === slides.length - 1;
+  }
+
+  prevBtn.addEventListener('click', () => { if (i > 0) { i--; render(); } });
+  nextBtn.addEventListener('click', () => { if (i < slides.length - 1) { i++; render(); } });
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'ArrowRight' && i < slides.length - 1) { i++; render(); }
+    if (e.key === 'ArrowLeft' && i > 0) { i--; render(); }
+  });
+
+  let touchStartX = 0;
+  document.querySelector('.card').addEventListener('touchstart', (e) => {
+    touchStartX = e.changedTouches[0].screenX;
+  });
+  document.querySelector('.card').addEventListener('touchend', (e) => {
+    const dx = e.changedTouches[0].screenX - touchStartX;
+    if (dx > 50 && i > 0) { i--; render(); }
+    if (dx < -50 && i < slides.length - 1) { i++; render(); }
+  });
+
+  render();
+</script>
+</body>
+</html>
